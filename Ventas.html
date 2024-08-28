@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ventas - Arte y Cuero</title>
+    <link rel="stylesheet" href="styles_ventas.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo-details">
+            <span class="logo_name">Arte y Cuero</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="panel_inventario.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="link_name">Panel</span>
+                </a>
+            </li>
+            <li>
+                <a href="inventario.html">
+                    <i class="fas fa-box"></i>
+                    <span class="link_name">Inventario</span>
+                </a>
+            </li>
+            <li>
+                <a href="ventas.html" class="active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="link_name">Ventas</span>
+                </a>
+            </li>
+            <li>
+                <a href="facturacion.html">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="link_name">Facturación</span>
+                </a>
+            </li>
+            <li>
+                <a href="configuracion.html">
+                    <i class="fas fa-cog"></i>
+                    <span class="link_name">Configuración</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <section class="home-section">
+        <header>
+            <div class="header-content">
+                <div class="sidebar-button">
+                    <i class="fas fa-bars sidebarBtn"></i>
+                    <span class="dashboard">Registro de Ventas</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchSales" placeholder="Buscar venta...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="profile-details">
+                    <i class="fas fa-user"></i>
+                    <span class="admin_name">Admin</span>
+                </div>
+            </div>
+        </header>
+        <div class="sales-content">
+            <div class="top-actions">
+                <div class="sales-actions">
+                    <button id="addSaleBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Registrar Venta
+                    </button>
+                    <button id="addClientBtn" class="btn btn-secondary">
+                        <i class="fas fa-user-plus"></i> Agregar Cliente
+                    </button>
+                    <button id="addCategoryBtn" class="btn btn-secondary">
+                        <i class="fas fa-folder-plus"></i> Agregar Categoría
+                    </button>
+                </div>
+            </div>
+            <div class="sales-filters">
+                <select id="categoryFilter">
+                    <option value="">Todas las categorías</option>
+                </select>
+                <select id="clientFilter">
+                    <option value="">Todos los clientes</option>
+                </select>
+                <input type="text" id="productFilter" placeholder="Producto">
+            </div>
+            <div class="sales-table">
+                <table id="salesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Cliente</th>
+                            <th>Precio</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las ventas se insertarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para registrar/editar venta -->
+    <div id="saleModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Registrar Venta</h2>
+            <form id="saleForm">
+                <input type="hidden" id="saleId">
+                <div class="form-group">
+                    <label for="saleProduct">Producto:</label>
+                    <input type="text" id="saleProduct" required>
+                </div>
+                <div class="form-group">
+                    <label for="saleCategory">Categoría:</label>
+                    <select id="saleCategory" required>
+                        <!-- Opciones de categorías se cargarán aquí -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="saleClient">Cliente:</label>
+                    <select id="saleClient" required>
+                        <!-- Opciones de clientes se cargarán aquí -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="salePrice">Precio:</label>
+                    <input type="number" id="salePrice" required min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="saleDate">Fecha:</label>
+                    <input type="date" id="saleDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar cliente -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Cliente</h2>
+            <form id="clientForm">
+                <div class="form-group">
+                    <label for="clientName">Nombre:</label>
+                    <input type="text" id="clientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">Teléfono:</label>
+                    <input type="text" id="clientPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientCountry">País:</label>
+                    <input type="text" id="clientCountry" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cliente</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para agregar categoría -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Categoría</h2>
+            <form id="categoryForm">
+                <div class="form-group">
+                    <label for="categoryName">Nombre de la Categoría:</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Categoría</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script_ventas.js"></script>
+</body>
+</html>

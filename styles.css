@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #0A2647;
+    --secondary-color: #144272;
+    --accent-color: #205295;
+    --text-color: #2C74B3;
+    --background-color: #f5f5f5;
+    --white: #fff;
+    --sidebar-width: 240px;
+    --sidebar-width-collapsed: 60px;
+    --transition-speed: 0.5s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: var(--sidebar-width);
+    background: var(--primary-color);
+    transition: all var(--transition-speed) ease;
+    z-index: 1000;
+}
+
+.sidebar .logo-details {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.sidebar .logo-details i,
+.sidebar .logo-details .logo_name {
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.sidebar .nav-links {
+    margin-top: 1rem;
+    padding: 0;
+}
+
+.sidebar .nav-links li {
+    position: relative;
+    list-style: none;
+}
+
+.sidebar .nav-links li a {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    padding: 0 1rem;
+}
+
+.sidebar .nav-links li a.active,
+.sidebar .nav-links li a:hover {
+    background: var(--secondary-color);
+}
+
+.sidebar .nav-links li i,
+.sidebar .nav-links li a .links_name {
+    color: var(--white);
+}
+
+.sidebar .nav-links li i {
+    min-width: 2rem;
+    text-align: center;
+    font-size: 1.125rem;
+}
+
+.home-section {
+    position: relative;
+    background: var(--background-color);
+    min-height: 100vh;
+    width: calc(100% - var(--sidebar-width));
+    left: var(--sidebar-width);
+    transition: all var(--transition-speed) ease;
+}
+
+.sidebar.active ~ .home-section {
+    width: calc(100% - var(--sidebar-width-collapsed));
+    left: var(--sidebar-width-collapsed);
+}
+
+.home-section header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: calc(100% - var(--sidebar-width));
+    left: var(--sidebar-width);
+    z-index: 100;
+    padding: 1rem;
+    background: var(--white);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-speed) ease;
+}
+
+
+
+
+.home-section .home-content {
+    padding: 6rem 1rem 1rem;
+}
+
+.overview-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.overview-boxes .box {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-topic {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.home-content .box .number {
+    font-size: 2.25rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    color: var(--accent-color);
+}
+
+.home-content .box .indicator {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.home-content .box .indicator i {
+    height: 1.25rem;
+    width: 1.25rem;
+    background: #8FDACB;
+    line-height: 1.25rem;
+    text-align: center;
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 0.875rem;
+    margin-right: 0.3125rem;
+}
+
+.box .indicator i.down {
+    background: #e87d88;
+}
+
+.home-content .box .indicator .text {
+    font-size: 0.875rem;
+    color: var(--text-color);
+}
+
+.home-content .box .cart {
+    font-size: 2rem;
+    height: 3.125rem;
+    width: 3.125rem;
+    line-height: 3.125rem;
+    text-align: center;
+    color: var(--accent-color);
+    background: #cce5ff;
+    border-radius: 0.75rem;
+}
+
+.home-content .box .cart.two {
+    color: #2BD47D;
+    background: #C0F2D8;
+}
+
+.home-content .box .cart.three {
+    color: #ffc233;
+    background: #ffe8b3;
+}
+
+
+
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border: 1px solid var(--accent-color);
+    background: var(--white);
+    border-radius: 6px;
+    font-size: 1rem;
+    padding: 0 15px;
+}
+
+.search-box button {
+    position: absolute;
+    height: 100%;
+    width: 40px;
+    right: 0;
+    top: 0;
+    background: var(--accent-color);
+    color: var(--white);
+    border: none;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+}
+
+.profile-details {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-radius: 6px;
+    height: 50px;
+    min-width: 190px;
+    padding: 0 15px 0 2px;
+}
+
+.profile-details img {
+    height: 40px;
+    width: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.profile-details .admin_name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.profile-details button {
+    font-size: 1rem;
+    color: var(--primary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        left: -240px;
+    }
+    
+    .sidebar.active {
+        width: var(--sidebar-width);
+        left: 0;
+    }
+    
+    .home-section {
+        width: 100%;
+        left: 0;
+    }
+    
+    .home-section header {
+        width: 100%;
+        left: 0;
+    }
+    
+    .sidebar.active ~ .home-section {
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+    }
+    
+    .sidebar.active ~ .home-section header {
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+    }
+
+    .overview-boxes {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .profile-details {
+        margin-top: 1rem;
+    }
+
+    .profile-details .admin_name {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    #sidebarToggle {
+        display: none;
+    }
+}

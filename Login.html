@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arte y Cuero - Inicio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <a href="recuperacion.html" class="boton-recuperacion">¿Olvidaste tu contraseña?</a>
+    <header>
+      <h1>ARTE Y CUERO</h1>
+      <img src="Logo.jfif" alt="Logo Arte y Cuero" class="logo">
+    </header>
+    <main>
+      <h1>Inicia sesión en tu cuenta</h1>
+      <form action="panel_inventario.html"> <input type="text" placeholder="Usuario" id="username" required>
+        <input type="password" placeholder="Contraseña" id="password" required>
+        <button type="submit" class="iniciar-sesion">Iniciar Sesión</button>
+        
+        <button type="button" class="boton-registro" onclick="redirigir()">Registrarse</button>
+      </form>
+    </main>
+    <script>
+      // Función para la animación de los botones
+      function animateButton(button) {
+        button.style.transform = "scale(1)";
+
+        setTimeout(() => {
+          button.style.transform = "scale(1.2)";
+          setTimeout(() => {
+            button.style.transform = "scale(1)";
+          }, 200);
+        }, 50);
+      }
+
+      // Añade el evento click a ambos botones
+      const buttons = document.querySelectorAll(".iniciar-sesion, .boton-registro");
+
+      for (const button of buttons) {
+        button.addEventListener("click", () => {
+          animateButton(button); // Llama a la función de animación
+        });
+      }
+
+      // Función para redirigir al registro
+      function redirigir() {
+  const container = document.querySelector(".container");
+
+  // Ajusta la rotación a 360 grados directamente
+  container.style.transform = "rotate(360deg)";
+
+  // Escucha el evento "transitionend" para redireccionar
+  container.addEventListener('transitionend', () => {
+    window.location.href = "registro.html";
+  });
+}
+
+
+    </script>
+  </div>
+</body>
+</html>

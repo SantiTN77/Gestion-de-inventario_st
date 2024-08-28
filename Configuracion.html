@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario - Configuración | Arte y Cuero</title>
+    <link rel="stylesheet" href="styles_inventario.css">
+    <link rel="stylesheet" href="styles_configuracion.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo-details">
+            <span class="logo_name">Arte y Cuero</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="panel_inventario.html">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="inventario.html">
+                    <i class="fas fa-box"></i>
+                    <span class="link_name">Inventario</span>
+                </a>
+            </li>
+            <li>
+                <a href="ventas.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="link_name">Ventas</span>
+                </a>
+            </li>
+            <li>
+                <a href="facturacion.html">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="link_name">Facturación</span>
+                </a>
+            </li>
+            <li>
+                <a href="configuracion.html" class="active">
+                    <i class="fas fa-cog"></i>
+                    <span class="link_name">Configuración</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="home-section">
+        <header>
+            <div class="header-content">
+                <div class="sidebar-button">
+                    <i class="fas fa-bars sidebarBtn"></i>
+                    <span class="dashboard">Gestión de Inventario</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchSetting" placeholder="Buscar opción...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="profile-details">
+                    <i class="fas fa-user"></i>
+                    <span class="admin_name">Admin</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="settings-content">
+            <div class="settings-options">
+                <button id="editProfileBtn" class="btn btn-primary">
+                    <i class="fas fa-user-edit"></i> Editar Perfil
+                </button>
+                <button id="changePasswordBtn" class="btn btn-secondary">
+                    <i class="fas fa-lock"></i> Cambiar Contraseña
+                </button>
+                <button id="emailNotificationsBtn" class="btn btn-info">
+                    <i class="fas fa-envelope"></i> Notificaciones por Email
+                </button>
+            </div>
+
+            <div class="setting-details" id="settingDetails">
+                <!-- Aquí se cargarán dinámicamente los detalles de configuración -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para editar perfil -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Perfil</h2>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="fullName">Nombre Completo:</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para cambiar contraseña -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cambiar Contraseña</h2>
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label for="currentPassword">Contraseña Actual:</label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Nueva Contraseña:</label>
+                    <input type="password" id="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Nueva Contraseña:</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para configuración de notificaciones por email -->
+    <div id="emailNotificationsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Notificaciones por Email</h2>
+            <form id="emailNotificationsForm">
+                <div class="form-group">
+                    <label for="emailNotificationToggle">Recibir Notificaciones:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="emailNotificationToggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="emailAddress">Correo Electrónico:</label>
+                    <input type="email" id="emailAddress" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Configuración</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script_inventario.js"></script>
+    <script src="script_configuracion.js"></script>
+</body>
+</html>

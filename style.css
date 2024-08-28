@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #0A2647;
+    --secondary-color: #144272;
+    --accent-color: #205295;
+    --text-color: #2C74B3;
+    --background-color: #f5f5f5;
+    --white: #fff;
+    --sidebar-width: 240px;
+    --header-height: 60px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Estilos */
+
+h1 {
+  font-size: 30px;
+  font-family: "Playfair Display", serif;
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+  background: linear-gradient(#0A2647, #f5f5f5);
+  color: #fff;
+  height: 100vh;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Encabezado (incluido el logotipo) */
+header {
+  text-align: center;
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  margin: 0 auto 10px;
+  text-align: center;
+}
+
+.logo img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Títulos */
+h1 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  text-align: auto;
+}
+
+/* Formulario */
+form {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Elementos del formulario */
+input,
+button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  background: #0A2647;
+  color: #f5f5f5;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0A2647;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+}
+
+/* Color del texto del marcador de posición de entrada */
+input::-webkit-input-placeholder {
+  color: #000000;
+}
+
+input:-moz-placeholder {
+  color: #000000;
+}
+
+input::-moz-placeholder {
+  color: #000000;
+}
+
+.registro {
+  display: inline-block;
+  font-size: 18px;
+}
+
+.registro {
+  background: #0A2647;
+  color: #f5f5f5;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.registro:hover {
+  background: #0A2647;
+}
+
+/* Botón "Regresar al menú principal" */
+.regresar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  text-decoration: none;
+  color: #ffffff;
+  background: #0A2647;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.regresar:active {
+  background: #000000;
+  animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.container:hover {
+  transform: rotate(5px);
+}
+
+.container {
+  transition: transform 0.8s ease-in-out;
+}
+.boton-recuperacion {
+  display: inline-block;
+  margin-inline-end: 20px; /* Mueve el botón hacia abajo */
+  font-size: 0.8em; /* Reduce el tamaño del texto */
+  border-radius: 12px;
+  background-color: #0A2647; /* Cambia el color de fondo a un tono más claro de café */
+  color: #f5f5f5; /* Cambia el color del texto a un tono más oscuro */
+  text-decoration: none;
+  padding: 10px 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+

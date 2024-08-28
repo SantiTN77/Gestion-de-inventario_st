@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #0A2647;
+    --secondary-color: #144272;
+    --accent-color: #205295;
+    --text-color: #2C74B3;
+    --background-color: #f5f5f5;
+    --white: #fff;
+    --sidebar-width: 240px;
+    --header-height: 60px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+/* Estilos específicos para la página de facturación */
+
+.invoice-content {
+    padding: 20px;
+    margin-top: calc(var(--header-height) + 20px); /* Ajustado para dar espacio al header fijo */
+}
+
+.invoice-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.invoice-actions .btn {
+    margin-right: 10px;
+}
+
+.invoice-filters {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.invoice-filters select,
+.invoice-filters input[type="date"] {
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: auto;
+}
+
+.invoice-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.invoice-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.invoice-card:hover {
+    transform: translateY(-5px);
+}
+
+.invoice-card .invoice-info {
+    padding: 15px;
+}
+
+.invoice-card .invoice-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+.invoice-card .invoice-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.invoice-card .invoice-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: var(--background-color);
+}
+
+.invoice-card .invoice-actions button {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+}
+
+/* Estilos para modal de factura */
+
+.invoice-modal-content {
+    background-color: var(--white);
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.invoice-modal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.invoice-modal .form-group {
+    margin-bottom: 1rem;
+}
+
+.invoice-modal .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.invoice-modal .form-group input,
+.invoice-modal .form-group textarea,
+.invoice-modal .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.invoice-modal .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.invoice-modal .btn-primary {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+.invoice-modal .btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 60px;
+    }
+    .home-section {
+        width: calc(100% - 60px);
+        left: 60px;
+    }
+    .home-section header {
+        width: calc(100% - 60px);
+        left: 60px;
+    }
+    .sidebar.active ~ .home-section,
+    .sidebar.active ~ .home-section header {
+        left: var(--sidebar-width);
+        width: calc(100% - var(--sidebar-width));
+    }
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .search-box {
+        margin: 10px 0;
+    }
+    .profile-details {
+        margin: 10px 0;
+    }
+}

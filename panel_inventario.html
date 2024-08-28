@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <aside class="sidebar" aria-label="Menú principal">
+        <div class="logo-details">
+            <i class="fas fa-paint-brush" aria-hidden="true"></i>
+            <span class="logo_name">Arte y Cuero</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li>
+                    <a href="#dashboard" class="active" aria-current="page">
+                        <i class="fas fa-th-large" aria-hidden="true"></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Inventario.html">
+                        <i class="fas fa-box" aria-hidden="true"></i>
+                        <span class="links_name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Ventas.html">
+                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="links_name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Facturacion.html">
+                        <i class="fas fa-file-invoice" aria-hidden="true"></i>
+                        <span class="links_name">Facturación</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#configuracion">
+                        <i class="fas fa-cog" aria-hidden="true"></i>
+                        <span class="links_name">Configuración</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="home-section">
+        <header>
+            <button id="newSidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="logo-details">
+                <i class="fas fa-paint-brush" aria-hidden="true"></i>
+                <span class="logo_name">Arte y Cuero</span>
+            </div>
+            <div class="search-box">
+                <input type="text" placeholder="Buscar..." aria-label="Buscar en el panel">
+                <button aria-label="Realizar búsqueda">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="profile-details">
+                <img src="imagen_perfil.jpg" alt="Foto de perfil del administrador">
+                <span class="admin_name">Admin</span>
+                <button aria-label="Abrir menú de perfil">
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                </button>
+            </div>
+        </header>
+        <section class="home-content">
+            <div class="overview-boxes">
+                <article class="box">
+                    <div class="right-side">
+                        <h2 class="box-topic">Total de Ventas</h2>
+                        <div class="number" data-target="40876">$40,876</div>
+                        <div class="indicator">
+                            <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                            <span class="text">Desde ayer</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-cart-plus cart" aria-hidden="true"></i>
+                </article>
+                <article class="box">
+                    <div class="right-side">
+                        <h2 class="box-topic">Total de Productos</h2>
+                        <div class="number" data-target="876">876</div>
+                        <div class="indicator">
+                            <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                            <span class="text">Desde ayer</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-box cart two" aria-hidden="true"></i>
+                </article>
+                <article class="box">
+                    <div class="right-side">
+                        <h2 class="box-topic">Facturas Pendientes</h2>
+                        <div class="number" data-target="12">12</div>
+                        <div class="indicator">
+                            <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                            <span class="text">Desde ayer</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-file-invoice cart three" aria-hidden="true"></i>
+                </article>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
