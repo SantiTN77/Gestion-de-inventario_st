@@ -1,11 +1,18 @@
+<?php
+include('../config/db_config.php');
+include_once('..//controllers/functions.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Inventario - Arte y Cuero</title>
-    <link rel="stylesheet" href="styles_inventario.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../public/css/styles_inventario.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <nav class="sidebar">
@@ -14,33 +21,40 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="panel_inventario.html">
+                <a href="../views/panel_inventario.html">
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="link_name">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="inventario.html" class="active">
+                <a href="../controller/inventario.php" class="active">
                     <i class="fas fa-box"></i>
                     <span class="link_name">Inventario</span>
                 </a>
             </li>
+           <li>
+               <a href="../views/ventas.html"> 
+                   <i class="fas fa-shopping-cart"></i>
+                   <span class="link_name">Ventas</span>
+               </a>
+           </li>
+           
             <li>
-                <a href="ventas.html">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="link_name">Ventas</span>
-                </a>
-            </li>
-            <li>
-                <a href="facturacion.html">
+                <a href="../views/facturacion.html">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span class="link_name">Facturación</span>
                 </a>
             </li>
             <li>
-                <a href="configuracion.html">
+                <a href="inventario/views/configuracion.html">
                     <i class="fas fa-cog"></i>
                     <span class="link_name">Configuración</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="Login.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="link_name">Cerrar Sesión</span>
                 </a>
             </li>
         </ul>
@@ -80,6 +94,7 @@
             <div class="inventory-filters">
                 <select id="categoryFilter">
                     <option value="">Todas las categorías</option>
+                    <?php echo getCategoryOptions(); ?>
                 </select>
                 <input type="number" id="priceFilter" placeholder="Precio máximo">
             </div>
@@ -88,35 +103,35 @@
             </div>
         </div>
     </section>
-
+    
     <!-- Modal para agregar/editar producto -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2 id="modalTitle">Agregar Producto</h2>
-            <form id="productForm">
-                <input type="hidden" id="productId">
+            <form id="productForm" enctype="multipart/form-data">
+                <input type="hidden" id="productId" name="productId">
                 <div class="form-group">
                     <label for="productName">Nombre:</label>
-                    <input type="text" id="productName" required>
+                    <input type="text" id="productName" name="productName" required>
                 </div>
                 <div class="form-group">
                     <label for="productCategory">Categoría:</label>
-                    <select id="productCategory" required>
-                        <!-- Opciones de categorías se cargarán aquí -->
+                    <select id="productCategory" name="productCategory" required>
+                        <?php echo getCategoryOptions(); ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="productImage">Imagen:</label>
-                    <input type="file" id="productImage" accept="image/*">
+                    <input type="file" id="productImage" name="productImage" accept="image/*">
                 </div>
                 <div class="form-group">
                     <label for="productQuantity">Cantidad:</label>
-                    <input type="number" id="productQuantity" required min="0">
+                    <input type="number" id="productQuantity" name="productQuantity" required min="0">
                 </div>
                 <div class="form-group">
                     <label for="productPrice">Precio:</label>
-                    <input type="number" id="productPrice" required min="0" step="0.01">
+                    <input type="number" id="productPrice" name="productPrice" required min="0" step="0.01">
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
@@ -131,13 +146,14 @@
             <form id="categoryForm">
                 <div class="form-group">
                     <label for="categoryName">Nombre de la Categoría:</label>
-                    <input type="text" id="categoryName" required>
+                    <input type="text" id="categoryName" name="nombre" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar Categoría</button>
             </form>
         </div>
     </div>
 
-    <script src="script_inventario.js"></script>
+    <script src="../public/js/script_inventario.js"></script>
+
 </body>
 </html>

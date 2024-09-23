@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="stylesheet" href="../public/css/styles_inventario.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -16,33 +19,39 @@
         <nav>
             <ul class="nav-links">
                 <li>
-                    <a href="#dashboard" class="active" aria-current="page">
+                    <a href="../views/panel_inventario.html" class="active" aria-current="page">
                         <i class="fas fa-th-large" aria-hidden="true"></i>
                         <span class="links_name">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="Inventario.html">
+                    <a href="../controllers/inventario.php">
                         <i class="fas fa-box" aria-hidden="true"></i>
                         <span class="links_name">Inventario</span>
                     </a>
                 </li>
                 <li>
-                    <a href="Ventas.html">
+                    <a href="../views/Ventas.html">
                         <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                         <span class="links_name">Ventas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="Facturacion.html">
+                    <a href="../views/Facturacion.html">
                         <i class="fas fa-file-invoice" aria-hidden="true"></i>
                         <span class="links_name">Facturación</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#configuracion">
+                    <a href="../views/Configuracion.html">
                         <i class="fas fa-cog" aria-hidden="true"></i>
                         <span class="links_name">Configuración</span>
+                    </a>
+                </li>
+                <li class="log_out">
+                    <a href="../views/Login.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="link_name">Cerrar Sesión</span>
                     </a>
                 </li>
             </ul>
@@ -64,7 +73,7 @@
                 </button>
             </div>
             <div class="profile-details">
-                <img src="imagen_perfil.jpg" alt="Foto de perfil del administrador">
+                <img src="../public/img/Logo.jfif" alt="Foto de perfil del administrador">
                 <span class="admin_name">Admin</span>
                 <button aria-label="Abrir menú de perfil">
                     <i class="fas fa-chevron-down" aria-hidden="true"></i>
@@ -109,6 +118,6 @@
             </div>
         </section>
     </main>
-    <script src="script.js"></script>
+    <script src="../public/js/script.js"></script>
 </body>
 </html>
