@@ -1,3 +1,64 @@
+console.log('script_facturacion.js cargado');
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Declarar loadInvoices fuera del evento DOMContentLoaded
+let loadInvoices;
+
+function deleteInvoice(id) {
+    console.log('Función deleteInvoice llamada con id:', id);
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content confirmation-modal">
+            <h2>Confirmar eliminación</h2>
+            <p>¿Estás seguro de que quieres eliminar esta factura?</p>
+            <div class="button-group">
+                <button id="confirmDelete" class="btn btn-danger">Eliminar</button>
+                <button id="cancelDelete" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('confirmDelete').addEventListener('click', () => {
+        fetch('../controllers/facturacion_controller.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=eliminar_factura&id=${id}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification('Factura eliminada exitosamente', 'success');
+                loadInvoices(); // Ahora loadInvoices está definida globalmente
+            } else {
+                showNotification('Error al eliminar la factura: ' + data.message, 'error');
+            }
+            modal.remove();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error al eliminar la factura', 'error');
+            modal.remove();
+        });
+    });
+
+    document.getElementById('cancelDelete').addEventListener('click', () => {
+        modal.remove();
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const createInvoiceBtn = document.getElementById('createInvoiceBtn');
     const invoiceModal = document.getElementById('invoiceModal');
@@ -9,6 +70,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const clientFilter = document.getElementById('clientFilter');
     const dateFilter = document.getElementById('dateFilter');
     const filterBtn = document.getElementById('filterBtn');
+
+    // Definir loadInvoices dentro del evento DOMContentLoaded
+    loadInvoices = function() {
+        const clientId = clientFilter.value;
+        const date = dateFilter.value;
+
+        fetch('../controllers/facturacion_controller.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `action=obtener_facturas&cliente_id=${clientId}&fecha=${date}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const invoices = data.data;
+                const tableBody = document.querySelector('#invoiceTable tbody');
+                tableBody.innerHTML = '';
+                invoices.forEach(invoice => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${invoice.id}</td>
+                        <td>${invoice.nombre_cliente}</td>
+                        <td>${invoice.fecha}</td>
+                        <td>$${parseFloat(invoice.total).toFixed(2)}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-view" data-id="${invoice.id}">Ver</button>
+                            <button class="btn btn-edit" data-id="${invoice.id}">Editar</button>
+                            <button class="btn btn-delete" data-id="${invoice.id}">Eliminar</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                // Agregar event listeners a los botones de acción
+                document.querySelectorAll('.btn-view').forEach(btn => {
+                    btn.addEventListener('click', () => viewInvoice(btn.dataset.id));
+                });
+                document.querySelectorAll('.btn-edit').forEach(btn => {
+                    btn.addEventListener('click', () => editInvoice(btn.dataset.id));
+                });
+                document.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        console.log('Botón eliminar clickeado para id:', btn.dataset.id);
+                        deleteInvoice(btn.dataset.id);
+                    });
+                });
+            } else {
+                console.error('Error al cargar facturas:', data.message);
+                showNotification('Error al cargar facturas: ' + data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error al cargar facturas', 'error');
+        });
+    };
+
+    // Asegúrate de que el modal no se muestre al cargar la página
+    invoiceModal.style.display = 'none';
 
     createInvoiceBtn.addEventListener('click', () => {
         invoiceModal.style.display = 'block';
@@ -37,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const formData = new FormData(invoiceForm);
         formData.append('action', 'guardar_factura');
-
+    
         const productos = [];
         document.querySelectorAll('.product-row').forEach(row => {
             productos.push({
@@ -47,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
         formData.append('productos', JSON.stringify(productos));
-
+    
         fetch('../controllers/facturacion_controller.php', {
             method: 'POST',
             body: formData
@@ -55,74 +177,20 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert(data.message);
+                showNotification('Factura guardada exitosamente', 'success');
                 invoiceModal.style.display = 'none';
+                invoiceForm.reset();
                 loadInvoices();
             } else {
-                alert('Error al guardar la factura: ' + data.message);
+                showNotification('Error al guardar la factura: ' + data.message, 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Error al guardar la factura');
+            showNotification('Error al guardar la factura', 'error');
         });
     });
-
     filterBtn.addEventListener('click', loadInvoices);
-
-    function loadInvoices() {
-        const clientId = clientFilter.value;
-        const date = dateFilter.value;
-
-        fetch('../controllers/facturacion_controller.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: `action=obtener_facturas&cliente_id=${clientId}&fecha=${date}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const invoices = data.data;
-                const tableBody = document.querySelector('#invoiceTable tbody');
-                tableBody.innerHTML = '';
-                invoices.forEach(invoice => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${invoice.id}</td>
-                        <td>${invoice.nombre_cliente}</td>
-                        <td>${invoice.fecha}</td>
-                        <td>$${parseFloat(invoice.total).toFixed(2)}</td>
-                       <td>
-            <button class="btn btn-secondary btn-view" data-id="${invoice.id}">Ver</button>
-            <button class="btn btn-edit" data-id="${invoice.id}">Editar</button>
-            <button class="btn btn-delete" data-id="${invoice.id}">Eliminar</button>
-        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-
-                // Agregar event listeners a los botones de acción
-                document.querySelectorAll('.btn-view').forEach(btn => {
-                    btn.addEventListener('click', () => viewInvoice(btn.dataset.id));
-                });
-                document.querySelectorAll('.btn-edit').forEach(btn => {
-                    btn.addEventListener('click', () => editInvoice(btn.dataset.id));
-                });
-                document.querySelectorAll('.btn-delete').forEach(btn => {
-                    btn.addEventListener('click', () => deleteInvoice(btn.dataset.id));
-                });
-            } else {
-                console.error('Error al cargar facturas:', data.message);
-                alert('Error al cargar facturas: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error al cargar facturas');
-        });
-    }
 
     function loadClients() {
         fetch('../controllers/facturacion_controller.php', {
@@ -291,31 +359,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
             alert('Error al cargar la factura');
         });
-    }
-
-    function deleteInvoice(id) {
-        if (confirm('¿Estás seguro de que quieres eliminar esta factura?')) {
-            fetch('../controllers/facturacion_controller.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `action=eliminar_factura&id=${id}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Factura eliminada exitosamente');
-                    loadInvoices();
-                } else {
-                    alert('Error al eliminar la factura: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al eliminar la factura');
-            });
-        }
     }
 
     // Cargar facturas e inicializar la página

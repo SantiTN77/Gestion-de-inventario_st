@@ -58,19 +58,31 @@
                     </button>
                 </div>
                 <div class="sales-view-toggle">
-                    <button id="gridViewBtn"><i class="fas fa-th"></i></button>
-                    <button id="listViewBtn"><i class="fas fa-list"></i></button>
+                    <button id="gridViewBtn" aria-label="Ver en cuadrícula">
+                        <i class="fas fa-th"></i> Cuadrícula
+                    </button>
+                    <button id="listViewBtn" aria-label="Ver en lista">
+                        <i class="fas fa-list"></i> Lista
+                    </button>
                 </div>
             </div>
             <div class="sales-filters">
+                <label for="filtroCliente">Filtrar por cliente:</label>
                 <select id="filtroCliente">
                     <option value="">Todos los clientes</option>
                 </select>
+                
+                <label for="filtroCategoria">Filtrar por categoría:</label>
                 <select id="filtroCategoria">
                     <option value="">Todas las categorías</option>
                 </select>
-                <input type="date" id="filtroFechaDesde" placeholder="Fecha desde">
-                <input type="date" id="filtroFechaHasta" placeholder="Fecha hasta">
+                
+                <label for="filtroFechaDesde">Fecha desde:</label>
+                <input type="date" id="filtroFechaDesde">
+                
+                <label for="filtroFechaHasta">Fecha hasta:</label>
+                <input type="date" id="filtroFechaHasta">
+                
                 <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
             </div>
             <div class="sales-table">
@@ -93,59 +105,30 @@
     </section>
 
     <!-- Modal para agregar venta -->
-<div id="ventaModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Agregar Venta</h2>
-  
-      <form id="formVenta">
-        <!-- Selección de cliente -->
-        <div class="form-group">
-          <label for="cliente">Cliente</label>
-          <select id="cliente" required></select>
+    <div id="ventaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Venta</h2>
+            <form id="formVenta">
+                <div class="form-group">
+                    <label for="cliente">Cliente:</label>
+                    <select id="cliente" name="cliente_id" required>
+                        <option value="">Seleccionar Cliente</option>
+                        <!-- Las opciones de clientes se cargarán dinámicamente -->
+                    </select>
+                </div>
+                <div id="productList">
+                    <!-- Las filas de productos se agregarán dinámicamente -->
+                </div>
+                <button type="button" id="agregarProductoBtn" class="btn btn-secondary">Agregar Producto</button>
+                <div class="form-group">
+                    <label for="totalVenta">Total:</label>
+                    <input type="number" id="totalVenta" name="total" readonly>
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar Venta</button>
+            </form>
         </div>
-  
-        <!-- Selección de producto -->
-        <div class="form-group">
-          <label for="producto">Producto</label>
-          <select id="producto" required></select>
-        </div>
-  
-        <!-- Cantidad -->
-        <div class="form-group">
-          <label for="cantidad">Cantidad</label>
-          <input type="number" id="cantidad" min="1" required>
-        </div>
-  
-        <!-- Tabla de productos añadidos -->
-        <div class="form-group">
-          <table id="productosAgregados">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Subtotal</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-  
-        <!-- Total -->
-        <div class="form-group">
-          <label>Total: $<span id="totalVenta">0.00</span></label>
-        </div>
-  
-        <!-- Botones -->
-        <div class="form-group">
-          <button type="button" class="btn btn-secondary" id="agregarProductoBtn">Agregar Producto</button>
-          <button type="submit" class="btn btn-primary">Guardar Venta</button>
-        </div>
-      </form>
     </div>
-  </div>
-  
 
     <!-- Modal para Nuevo Cliente -->
     <div id="clienteModal" class="modal">
@@ -165,7 +148,7 @@
                     <label for="correoCliente">Correo:</label>
                     <input type="email" id="correoCliente" name="correo">
                 </div>
-                <button type="submit">Guardar Cliente</button>
+                <button type="submit" class="btn btn-primary">Guardar Cliente</button>
             </form>
         </div>
     </div>
@@ -180,7 +163,7 @@
                     <label for="nombreCategoria">Nombre:</label>
                     <input type="text" id="nombreCategoria" name="nombre" required>
                 </div>
-                <button type="submit">Guardar Categoría</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
         </div>
     </div>

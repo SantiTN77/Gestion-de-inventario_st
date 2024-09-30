@@ -112,8 +112,12 @@ function deleteProduct() {
     try {
         $id = sanitizeInput($_GET['id']);
         $stmt = $pdo->prepare("DELETE FROM productos WHERE id = ?");
-        $stmt->execute([$id]);
-        echo json_encode(['success' => true, 'message' => 'Producto eliminado exitosamente']);
+        $result = $stmt->execute([$id]);
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Producto eliminado exitosamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el producto']);
+        }
     } catch (Exception $e) {
         error_log('Error en deleteProduct: ' . $e->getMessage());
         echo json_encode(['success' => false, 'message' => 'Error al eliminar el producto: ' . $e->getMessage()]);

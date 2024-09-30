@@ -1,3 +1,138 @@
+// Al principio del archivo
+console.log('script_inventario.js cargado');
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Reemplaza todas las instancias de alert() con showNotification()
+// Por ejemplo:
+// alert('Producto guardado exitosamente');
+// se convierte en:
+// showNotification('Producto guardado exitosamente', 'success');
+
+// Y
+// alert('Error al guardar el producto: ' + data.message);
+// se convierte en:
+// showNotification('Error al guardar el producto: ' + data.message, 'error');
+
+// Asegúrate de que el modal no se muestre al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    const productModal = document.getElementById('productModal');
+    const categoryModal = document.getElementById('categoryModal');
+    
+    if (productModal) productModal.style.display = 'none';
+    if (categoryModal) categoryModal.style.display = 'none';
+
+    loadProducts();
+    // Resto del código de inicialización...
+});
+
+// Función para cargar productos
+function loadProducts() {
+    fetch('../controllers/product_actions.php?action=getProducts')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const productGallery = document.getElementById('inventoryGallery');
+                productGallery.innerHTML = '';
+                data.products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <img src="${product.imagen || '../public/img/default-product.jpg'}" alt="${product.nombre}">
+                        <h3>${product.nombre}</h3>
+                        <p>Categoría: ${product.categoria_nombre}</p>
+                        <p>Precio: $${parseFloat(product.precio).toFixed(2)}</p>
+                        <p>Cantidad: ${product.cantidad}</p>
+                        <button class="btn btn-edit" onclick="editProduct(${product.id})">Editar</button>
+                        <button class="btn btn-delete" onclick="deleteProduct(${product.id})">Eliminar</button>
+                    `;
+                    productGallery.appendChild(productCard);
+                });
+            } else {
+                showNotification('Error al cargar productos: ' + data.message, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Error al cargar productos', 'error');
+        });
+}
+
+// Función para guardar producto
+function saveProduct(formData) {
+    fetch('../controllers/product_actions.php?action=saveProduct', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Producto guardado exitosamente', 'success');
+            loadProducts();
+            closeModal();
+        } else {
+            showNotification('Error al guardar el producto: ' + data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Error al guardar el producto', 'error');
+    });
+}
+
+// Función para eliminar producto
+function deleteProduct(id) {
+    console.log('Función deleteProduct llamada con id:', id);
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content confirmation-modal">
+            <h2>Confirmar eliminación</h2>
+            <p>¿Estás seguro de que quieres eliminar este producto?</p>
+            <div class="button-group">
+                <button id="confirmDelete" class="btn btn-danger">Eliminar</button>
+                <button id="cancelDelete" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById('confirmDelete').addEventListener('click', () => {
+        fetch(`../controllers/product_actions.php?action=deleteProduct&id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Producto eliminado exitosamente', 'success');
+                    loadProducts(); // Recargar la lista de productos
+                } else {
+                    showNotification('Error al eliminar el producto: ' + data.message, 'error');
+                }
+                modal.remove();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Error al eliminar el producto', 'error');
+                modal.remove();
+            });
+    });
+
+    document.getElementById('cancelDelete').addEventListener('click', () => {
+        modal.remove();
+    });
+}
+
+// Asegúrate de que todas las funciones estén correctamente cerradas y no haya paréntesis extra
+
+// Resto del código...
+
 // Módulo de Inventario
 const InventoryApp = (function() {
     // Variables privadas
@@ -111,7 +246,7 @@ const InventoryApp = (function() {
                 closeModal.call(productModal.querySelector('.close'));
                 productForm.reset();
             } else {
-                alert(data.message);
+                showNotification('Error al guardar el producto: ' + data.message, 'error');
             }
         })
         .catch(error => console.error('Error:', error));
@@ -156,7 +291,7 @@ const InventoryApp = (function() {
                 closeModal.call(categoryModal.querySelector('.close'));
                 categoryForm.reset();
             } else {
-                alert(data.message);
+                showNotification('Error al guardar la categoría: ' + data.message, 'error');
             }
         })
         .catch(error => console.error('Error:', error));
@@ -251,21 +386,36 @@ const InventoryApp = (function() {
 
     // Eliminar producto
     function deleteProduct(id) {
-        if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal-content confirmation-modal">
+                <h2>Confirmar eliminación</h2>
+                <p>¿Estás seguro de que quieres eliminar este producto?</p>
+                <div class="button-group">
+                    <button id="confirmDelete" class="btn btn-danger">Eliminar</button>
+                    <button id="cancelDelete" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById('confirmDelete').addEventListener('click', () => {
             fetch(`product_actions.php?action=deleteProduct&id=${id}`, {
                 method: 'POST'
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showConfirmation(data.message);
-                    loadInventoryData();
-                } else {
-                    alert(data.message);
+                    showNotification('Producto eliminado exitosamente', 'success');
+                    modal.remove();
                 }
-            })
-            .catch(error => console.error('Error al eliminar producto:', error));
-        }
+            });
+        });
+
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            modal.remove();
+        });
     }
 
     // API pública

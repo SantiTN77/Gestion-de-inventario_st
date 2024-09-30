@@ -114,28 +114,27 @@ function eliminar_factura($id) {
     try {
         $pdo->beginTransaction();
 
-        // Obtener los detalles de la factura para restaurar el cantidad
-        $stmt = $pdo->prepare("SELECT producto_id, cantidad FROM detalle_facturas WHERE factura_id = ?"); // Corrected table name
+        // Obtener los detalles de la factura para restaurar la cantidad
+        $stmt = $pdo->prepare("SELECT producto_id, cantidad FROM detalle_facturas WHERE factura_id = ?");
         $stmt->execute([$id]);
         $detallesFactura = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Eliminar los detalles de la factura
-        $stmt = $pdo->prepare("DELETE FROM detalle_facturas WHERE factura_id = ?"); // Corrected table name
+        $stmt = $pdo->prepare("DELETE FROM detalle_facturas WHERE factura_id = ?");
         $stmt->execute([$id]);
 
         // Eliminar la factura
         $stmt = $pdo->prepare("DELETE FROM facturas WHERE id = ?");
         $stmt->execute([$id]);
-    } catch (PDOException $e) {
 
-        // Restaurar el cantidad de los productos
+        // Restaurar la cantidad de los productos
         foreach ($detallesFactura as $detalle) {
             $stmt = $pdo->prepare("UPDATE productos SET cantidad = cantidad + ? WHERE id = ?");
             $stmt->execute([$detalle['cantidad'], $detalle['producto_id']]);
         }
 
         $pdo->commit();
-        return ['success' => true, 'message' => 'Factura eliminada exitosamente'];
+        return ['success' => true, 'message' => 'Factura eliminada correctamente'];
     } catch (PDOException $e) {
         $pdo->rollBack();
         return ['success' => false, 'message' => 'Error al eliminar la factura: ' . $e->getMessage()];
@@ -145,6 +144,8 @@ function eliminar_factura($id) {
 // Manejador de solicitudes AJAX
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
+
+    header('Content-Type: application/json'); // Asegurarse de que la respuesta sea JSON
 
     switch ($action) {
         case 'obtener_facturas':
