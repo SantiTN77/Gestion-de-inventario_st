@@ -167,16 +167,16 @@ const InventoryApp = (function() {
     }
 
     function bindEvents() {
-        addProductBtn.addEventListener('click', openProductModal);
-        addCategoryBtn.addEventListener('click', openCategoryModal);
+        if (addProductBtn) addProductBtn.addEventListener('click', openProductModal);
+        if (addCategoryBtn) addCategoryBtn.addEventListener('click', openCategoryModal);
         closeButtons.forEach(button => button.addEventListener('click', closeModal));
-        productForm.addEventListener('submit', handleProductFormSubmit);
-        categoryForm.addEventListener('submit', handleCategoryFormSubmit);
-        searchInput.addEventListener('input', handleSearch);
-        categoryFilter.addEventListener('change', handleFilters);
-        priceFilter.addEventListener('input', handleFilters);
-        gridViewBtn.addEventListener('click', () => switchView('grid'));
-        listViewBtn.addEventListener('click', () => switchView('list'));
+        if (productForm) productForm.addEventListener('submit', handleProductFormSubmit);
+        if (categoryForm) categoryForm.addEventListener('submit', handleCategoryFormSubmit);
+        if (searchInput) searchInput.addEventListener('input', handleSearch);
+        if (categoryFilter) categoryFilter.addEventListener('change', handleFilters);
+        if (priceFilter) priceFilter.addEventListener('input', handleFilters);
+        if (gridViewBtn) gridViewBtn.addEventListener('click', () => switchView('grid'));
+        if (listViewBtn) listViewBtn.addEventListener('click', () => switchView('list'));
     }
 
     // Cargar categorías
