@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="stylesheet" href="../public/css/styles_inventario.css">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="logo-details">
+            <span class="logo_name">Arte y Cuero</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active">
+                <a href="../views/panel_inventario.html">
+                    <i class="fas fa-th-large"></i>
+                    <span class="link_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="../controllers/inventario.php">
+                    <i class="fas fa-box"></i>
+                    <span class="link_name">Inventario</span>
+                </a>
+            </li>
+            <li>
+                <a href="../views/Ventas.html">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="link_name">Ventas</span>
+                </a>
+            </li>
+            <li>
+                <a href="../views/Facturacion.html">
+                    <i class="fas fa-file-invoice"></i>
+                    <span class="link_name">Facturación</span>
+                </a>
+            </li>
+            <li>
+                <a href="../views/Configuracion.html">
+                    <i class="fas fa-cog"></i>
+                    <span class="link_name">Configuración</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="../views/Login.html">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="link_name">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <section class="home-section">
+        <header>
+            <div class="header-content">
+                <div class="sidebar-button">
+                    <i class="fas fa-bars" id="sidebarToggle"></i>
+                    <span class="dashboard">Dashboard</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="profile-details">
+                    <i class="fas fa-user"></i>
+                    <span class="admin_name">Admin</span>
+                </div>
+            </div>
+        </header>
+        <div class="home-content">
+            <div class="overview-boxes">
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Total de Ventas</div>
+                        <div class="number">$40,876</div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Total de Productos</div>
+                        <div class="number">876</div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Facturas Pendientes</div>
+                        <div class="number">12</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../public/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector(".sidebar");
+            const sidebarToggle = document.getElementById("sidebarToggle");
+            const homeSection = document.querySelector(".home-section");
+
+            function toggleSidebar() {
+                sidebar.classList.toggle("close");
+                homeSection.classList.toggle("close");
+                sidebarToggle.classList.toggle("rotate");
+            }
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener("click", toggleSidebar);
+            }
+
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.add("close");
+                    homeSection.classList.add("close");
+                } else {
+                    sidebar.classList.remove("close");
+                    homeSection.classList.remove("close");
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize(); // Llamar la función al cargar la página
+        });
+    </script>
+</body>
+</html>

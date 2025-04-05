@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturación - Arte y Cuero</title>
+    <link rel="stylesheet" href="../public/css/styles_facturacion.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <img src="../public/img/Logo.jfif" alt="Logo Arte y Cuero" class="logo">
+            <span class="logo_name">Arte y Cuero</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="panel_inventario.html">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Panel</span>
+                </a>
+            </li>
+            <li>
+                <a href="../controllers/inventario.php">
+                    <i class='bx bx-box'></i>
+                    <span class="link_name">Inventario</span>
+                </a>
+            </li>
+            <li>
+                <a href="../views/Ventas.html">
+                    <i class='bx bx-cart'></i>
+                    <span class="link_name">Ventas</span>
+                </a>
+            </li>
+            <li>
+                <a href="../views/Facturacion.html" class="active">
+                    <i class='bx bx-file'></i>
+                    <span class="link_name">Facturación</span>
+                </a>
+            </li>
+            <li>
+                <a href="../views/Configuracion.html">
+                    <i class='bx bx-cog'></i>
+                    <span class="link_name">Configuración</span>
+                </a>
+            </li>
+            <li>
+                <a href="Login.html">
+                    <i class='bx bx-log-out'></i>
+                    <span class="link_name">Cerrar Sesión</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <section class="home-section">
+        <header>
+            <div class="header-content">
+                <div class="sidebar-button">
+                    <i class='bx bx-menu sidebarBtn'></i>
+                    <span class="dashboard">Gestión de Facturas</span>
+                </div>
+                <div class="profile-details">
+                    <img src="../public/img/imagen_perfil.jpg" alt="Imagen de perfil">
+                    <span class="admin_name">Admin</span>
+                </div>
+            </div>
+        </header>
+        <div class="invoice-content">
+            <div class="top-actions">
+                <button id="createInvoiceBtn" class="invoice-actions">Nueva Factura</button>
+            </div>
+    
+            <div class="invoice-filters">
+                <select id="clientFilter">
+                    <option value="">Todos los clientes</option>
+                    <!-- Opciones de clientes se cargarán dinámicamente -->
+                </select>
+                <input type="date" id="dateFilter">
+                <button id="filterBtn">Filtrar</button>
+            </div>
+    
+            <table id="invoiceTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Las filas de facturas se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+    
+        <div id="invoiceModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modalTitle">Crear Factura</h2>
+                <form id="invoiceForm">
+                    <div class="form-group">
+                        <label for="clientName">Cliente:</label>
+                        <select id="clientName" name="cliente_id" required>
+                            <option value="">Seleccionar Cliente</option>
+                            <!-- Opciones de clientes se cargarán dinámicamente -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="invoiceDate">Fecha:</label>
+                        <input type="date" id="invoiceDate" name="fecha" required>
+                    </div>
+                    <div id="productList">
+                        <!-- Las filas de productos se agregarán dinámicamente -->
+                    </div>
+                    <button type="button" id="addProductBtn">Agregar Producto</button>
+                    <div class="form-group">
+                        <label for="totalAmount">Total:</label>
+                        <input type="number" id="totalAmount" name="total" readonly>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+            </div>
+        </div>
+    
+        <script src="../public/js/script_facturacion.js"></script>
+    </body>
+    </html>

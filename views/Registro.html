@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arte y Cuero - Registro</title>
+  <link rel="stylesheet" href="../public/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <a href="Login.html" class="regresar">Regresar</a>
+    
+    <header>
+      <img src="../public/img/Logo.jfif" alt="Arte y Cuero">
+    </header>
+    <main>
+      <h1>Regístrate en Arte y Cuero</h1>
+      <form id="registro-form">
+        <input type="text" placeholder="Nombre completo" id="nombre" required>
+        <input type="email" placeholder="Correo electrónico" id="email" required>
+        <input type="text" placeholder="Usuario" id="username" required>
+        <input type="password" placeholder="Contraseña" id="password" required>
+        <button type="submit" class="boton-registro">Registrarse</button>
+      </form>
+    </main>
+    <script>
+      const buttons = document.querySelectorAll(".Regresar, .boton-registro");
+      for (const button of buttons) {
+        button.addEventListener("click", () => {
+          button.style.transform = "scale(1)";
+          setTimeout(() => {
+            button.style.transform = "scale(1.2)";
+            setTimeout(() => {
+              button.style.transform = "scale(1)";
+            }, 200);
+          }, 50);
+        });
+      }
+
+      document.getElementById('registro-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('nombre', document.getElementById('nombre').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('username', document.getElementById('username').value);
+        formData.append('password', document.getElementById('password').value);
+
+        fetch('../controllers/registro.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Registro exitoso. Serás redirigido al login.');
+            window.location.href = 'Login.html';
+          } else {
+            alert('Error en el registro: ' + data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error durante el registro. Por favor, intenta de nuevo.');
+        });
+      });
+    </script>
+  </div>
+</body>
+</html>
