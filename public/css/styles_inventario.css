@@ -179,6 +179,7 @@ body {
 
 .inventory-actions {
     display: flex;
+<<<<<<< HEAD
     gap: 10px;
     padding: 20px;
     margin-top: var(--header-height); /* Asegura que los botones no queden bajo el header */
@@ -187,11 +188,17 @@ body {
 .btn {
     display: inline-flex;
     align-items: center;
+=======
+}
+
+.btn {
+>>>>>>> a649a3d102f0a7a3288ad0ae131b3c383517ab23
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
+<<<<<<< HEAD
     font-size: 14px;
     transition: all 0.3s ease;
 }
@@ -214,6 +221,25 @@ body {
 .btn:hover {
     opacity: 0.9;
     transform: translateY(-1px);
+=======
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+>>>>>>> a649a3d102f0a7a3288ad0ae131b3c383517ab23
 }
 
 .inventory-filters {
@@ -356,6 +382,7 @@ body {
     border-radius: 4px;
 }
 
+<<<<<<< HEAD
 /* Estilos del modal */
 .modal {
     display: none;
@@ -503,6 +530,8 @@ body {
     }
 }
 
+=======
+>>>>>>> a649a3d102f0a7a3288ad0ae131b3c383517ab23
 @media (max-width: 768px) {
     .sidebar {
         width: 60px;
@@ -675,6 +704,7 @@ body {
 #invoiceForm .btn-primary:hover,
 #invoiceForm .btn-secondary:hover {
     opacity: 0.9;
+<<<<<<< HEAD
 }
 
 /* Clase para contenido accesible solo para lectores de pantalla */
@@ -688,4 +718,6 @@ body {
     clip: rect(0,0,0,0);
     white-space: nowrap;
     border: 0;
+=======
+>>>>>>> a649a3d102f0a7a3288ad0ae131b3c383517ab23
 }
